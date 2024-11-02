@@ -20,4 +20,6 @@ jobs:
       - name: Deploy Website to gh-pages branch
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npm run ng -- deploy
+          GH_NAME: ${{ secrets.GH_NAME }}
+          GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        run: npm run ng -- deploy --name="$GH_NAME" --email="$GH_EMAIL"
