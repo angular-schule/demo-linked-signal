@@ -4,8 +4,7 @@ import { Book } from '../shared/book';
 
 @Component({
   selector: 'app-book',
-  templateUrl: './book.component.html',
-  styleUrl: './book.component.scss'
+  templateUrl: './book.component.html'
 })
 export class BookComponent {
 
