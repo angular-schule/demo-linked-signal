@@ -1,8 +1,9 @@
+<button (click)="changeOrder()" class="btn btn-primary mb-4">Change book order (locally)</button>
+
 @for (b of books(); track b.isbn) {
 
   <app-book
-    (rateUp)="doRateUp($event)"
-    (rateDown)="doRateDown($event)"
+    (ratingChange)="handleRatingChange($event)"
     [book]="b"
   />
 

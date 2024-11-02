@@ -1,49 +1,26 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, linkedSignal } from '@angular/core';
 
 import { BookComponent } from '../book/book.component';
-import { Book } from '../shared/book';
-import { BookRatingService } from '../shared/book-rating.service';
+import { BookStoreService } from '../shared/book-store.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
+  templateUrl: 'dashboard.component.html',
   imports: [BookComponent]
 })
 export class DashboardComponent {
+  private bookStore = inject(BookStoreService);
 
-  books = signal<Book[]>([]);
+  books = linkedSignal(
+    toSignal(this.bookStore.getAllBooks(), { initialValue: [] })
+  );
 
-  constructor(private rs: BookRatingService) {
-    this.books.set([
-      {
-        isbn: '123',
-        title: 'Angular',
-        description: 'The big practice book – basics, advanced topics and best practices.',
-        price: 36.9,
-        rating: 5
-      },
-      {
-        isbn: '456',
-        title: 'Vue.js',
-        description: 'The green framework',
-        price: 32.9,
-        rating: 3
-      }
-    ]);
+  changeOrder() {
+    this.books.update(books => books.toReversed());
   }
 
-  doRateUp(book: Book) {
-    const ratedBook = this.rs.rateUp(book);
-    this.updateAndSortList(ratedBook);
-  }
-
-  doRateDown(book: Book) {
-    const ratedBook = this.rs.rateDown(book);
-    this.updateAndSortList(ratedBook);
-  }
-
-  updateAndSortList(ratedBook: Book) {
-    this.books.update(books => books.map(b => b.isbn === ratedBook.isbn ? ratedBook : b)
-      .sort((a, b) => b.rating - a.rating));
+  handleRatingChange({ isbn, newRating }: { isbn: string, newRating: number }) {
+    this.books.update(books => books.map(b => b.isbn === isbn ? { ...b, rating: newRating } : b));
   }
 }
