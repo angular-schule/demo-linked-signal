@@ -7,7 +7,6 @@ import { BookRatingService } from '../shared/book-rating.service';
 
 @Component({
     selector: 'app-dashboard',
-    standalone: true,
     templateUrl: './dashboard.component.html',
     styleUrl: './dashboard.component.scss',
     imports: [NgFor, BookComponent, NgIf]

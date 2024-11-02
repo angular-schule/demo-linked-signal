@@ -5,7 +5,6 @@ import { Book } from '../shared/book';
 
 @Component({
     selector: 'app-book',
-    standalone: true,
     templateUrl: './book.component.html',
     styleUrl: './book.component.scss',
     imports: [NgIf, CurrencyPipe]
