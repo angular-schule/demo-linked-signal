@@ -14,6 +14,8 @@ describe('BookComponent', () => {
 
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
+
+    fixture.componentRef.setInput('book', {});
     fixture.detectChanges();
   });
 

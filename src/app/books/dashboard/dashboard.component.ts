@@ -1,36 +1,36 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 import { BookComponent } from '../book/book.component';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrl: './dashboard.component.scss',
-    imports: [NgFor, BookComponent, NgIf]
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
+  imports: [BookComponent]
 })
 export class DashboardComponent {
-  books: Book[] = [];
+
+  books = signal<Book[]>([]);
 
   constructor(private rs: BookRatingService) {
-    this.books = [
+    this.books.set([
       {
         isbn: '123',
         title: 'Angular',
-        description: 'Grundlagen und mehr',
+        description: 'The big practice book – basics, advanced topics and best practices.',
         price: 36.9,
         rating: 5
       },
       {
         isbn: '456',
         title: 'Vue.js',
-        description: 'Das grüne Framework',
+        description: 'The green framework',
         price: 32.9,
         rating: 3
       }
-    ];
+    ]);
   }
 
   doRateUp(book: Book) {
@@ -44,8 +44,7 @@ export class DashboardComponent {
   }
 
   updateAndSortList(ratedBook: Book) {
-    this.books = this.books
-      .map(b => b.isbn === ratedBook.isbn ? ratedBook : b)
-      .sort((a, b) => b.rating - a.rating);
+    this.books.update(books => books.map(b => b.isbn === ratedBook.isbn ? ratedBook : b)
+      .sort((a, b) => b.rating - a.rating));
   }
 }

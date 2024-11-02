@@ -1,26 +1,24 @@
-import { CurrencyPipe, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 import { Book } from '../shared/book';
 
 @Component({
-    selector: 'app-book',
-    templateUrl: './book.component.html',
-    styleUrl: './book.component.scss',
-    imports: [NgIf, CurrencyPipe]
+  selector: 'app-book',
+  templateUrl: './book.component.html',
+  styleUrl: './book.component.scss'
 })
 export class BookComponent {
 
-  @Input() book?: Book;
+  book = input.required<Book>();
 
-  @Output() rateUp = new EventEmitter<Book>();
-  @Output() rateDown = new EventEmitter<Book>();
+  rateUp = output<Book>();
+  rateDown = output<Book>();
 
   doRateUp() {
-    this.rateUp.emit(this.book);
+    this.rateUp.emit(this.book());
   }
 
   doRateDown() {
-    this.rateDown.emit(this.book);
+    this.rateDown.emit(this.book());
   }
 }
