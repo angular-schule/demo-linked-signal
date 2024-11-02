@@ -4,7 +4,7 @@ import { Component, linkedSignal, signal } from '@angular/core';
   selector: 'app-book-list',
   template: `
     <p>First book in list: {{ firstBook() }}</p>
-    <button (click)="changeBookList()">Change Book List</button>
+    <button (click)="changeBookList()" class="btn btn-primary">Change Book List</button>
   `,
 })
 export class BookListComponent {
