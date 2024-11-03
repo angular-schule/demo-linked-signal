@@ -7,12 +7,12 @@
     <div class="card-title">
       <h2>
         {{ title() }}
-        <span class="badge bg-secondary me-2">{{ b.rating }}</span>
+        <span class="badge bg-secondary me-2">{{ rating() }}</span>
       </h2>
     </div>
     <p>{{ b.description }}</p>
 
-    <button [disabled]="b.rating <= 1" class="btn btn-primary me-2" (click)="doRateDown()">-1</button>
-    <button [disabled]="b.rating >= 5" class="btn btn-primary" (click)="doRateUp()">+1</button>
+    <button [disabled]="rating() <= 1" class="btn btn-primary me-2" (click)="doRateDown()">-1</button>
+    <button [disabled]="rating() >= 5" class="btn btn-primary" (click)="doRateUp()">+1</button>
 </div>
 </div>
