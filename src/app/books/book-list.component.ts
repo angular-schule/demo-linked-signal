@@ -15,6 +15,9 @@ export class BookListComponent {
     computation: books => books[0]
   });
 
+  // this also works (shorthand version)
+  // firstBook = linkedSignal(() => this.books()[0]);
+
   overrideFirstBook() {
     // Manually updating `firstBook`, which now returns 'jQuery'
     this.firstBook.set('jQuery');

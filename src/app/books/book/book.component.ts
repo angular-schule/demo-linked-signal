@@ -20,7 +20,6 @@ export class BookComponent {
   // this also works:
   // rating = linkedSignal(() => this.book().rating);
 
-
   doRateUp() {
     const newRating = this.rating() + 1;
     this.rating.set(newRating);
